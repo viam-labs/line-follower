@@ -83,10 +83,6 @@ async def main():
     names = await vision.get_detector_names()
     print(names)
 
-    # targetY = await camera.get_properties().height_px / 2
-    frame = await camera.get_image()
-    targetY = frame.size[1] / 3
-
     # counter to increase robustness
     counter = 0
 
