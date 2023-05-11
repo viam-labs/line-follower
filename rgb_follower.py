@@ -6,7 +6,7 @@ from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
 from viam.components.base import Base, Vector3
 from viam.components.camera import Camera
-from viam.services.vision import VisionServiceClient
+from viam.services.vision import VisionClient
 
 
 # Copy and paste the following connect code from the CONNECT tab's Python SDK section
@@ -77,7 +77,7 @@ async def main():
     print("connected")
     camera = Camera.from_robot(robot, "my_camera")
     base = Base.from_robot(robot, "scuttlebase")
-    vision = VisionServiceClient.from_robot(robot, "builtin")
+    vision = VisionClient.from_robot(robot, "builtin")
     # Put your detector name in place of "green_detector"
     detections = await vision.get_detections_from_camera("my_camera", "green_detector")
     names = await vision.get_detector_names()
