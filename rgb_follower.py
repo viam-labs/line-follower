@@ -14,9 +14,13 @@ async def connect():
     """
     Connects code to robot.
     """
-    creds = Credentials(type="robot-location-secret", payload="<PASTE YOUR SECRET HERE>")
-    opts = RobotClient.Options(refresh_interval=0, dial_options=DialOptions(credentials=creds))
-    return await RobotClient.at_address("<PASTE YOUR ROBOT'S ADDRESS HERE>", opts)
+    opts = RobotClient.Options.with_api_key(
+      # Replace "<API-KEY>" (including brackets) with your robot's api key
+      api_key='<API-KEY>',
+      # Replace "<API-KEY-ID>" (including brackets) with your robot's api key id
+      api_key_id='<API-KEY-ID>'
+    )
+    return await RobotClient.at_address('ADDRESS FROM THE VIAM APP', opts)
 
 
 async def is_color_in_front(camera, detector):
