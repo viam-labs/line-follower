@@ -21,8 +21,7 @@ async def connect():
       # Replace "<API-KEY-ID>" (including brackets) with your robot's api key id
       api_key_id='<API-KEY-ID>'
     )
-    opts = RobotClient.Options(refresh_interval=0, dial_options=DialOptions(credentials=creds))
-    return await RobotClient.at_address("<PASTE YOUR ROBOT'S ADDRESS HERE>", opts)
+    return await RobotClient.at_address('ADDRESS FROM THE VIAM APP', opts)
 
 
 class Direction(Enum):
