@@ -16,9 +16,9 @@ async def connect():
     Connects code to robot.
     """
     opts = RobotClient.Options.with_api_key(
-      # Replace "<API-KEY>" (including brackets) with your robot's api key
+      # Replace "<API-KEY>" (including brackets) with your robot's API key
       api_key='<API-KEY>',
-      # Replace "<API-KEY-ID>" (including brackets) with your robot's api key id
+      # Replace "<API-KEY-ID>" (including brackets) with your robot's API key ID
       api_key_id='<API-KEY-ID>'
     )
     return await RobotClient.at_address('ADDRESS FROM THE VIAM APP', opts)
