@@ -7,6 +7,8 @@ from viam.rpc.dial import Credentials, DialOptions
 from viam.components.base import Base, Vector3
 from viam.components.camera import Camera
 from viam.services.vision import VisionServiceClient
+from viam.media.video import CameraMimeType
+from viam.media.utils.pil import viam_to_pil_image, pil_to_viam_image
 from enum import Enum, auto
 
 
@@ -36,17 +38,17 @@ async def move_to_color(frame, vis, detector_name) -> Direction:
 
     # Crop the image to get only the middle fifth of the top third of the original image
     top_frame = frame.crop((x / 2.5, 0, x / 1.25, y / 3))
-    top_det = await vis.get_detections(top_frame, detector_name)
+    top_det = await vis.get_detections(pil_to_viam_image(top_frame, CameraMimeType.JPEG), detector_name)
     if top_det:
         return Direction.FORWARD
 
     # Crop image to get only the left two fifths of the original image
     l_frame = frame.crop((0, 0, x / 2.5, y))
-    l_det = await vis.get_detections(l_frame, detector_name)
+    l_det = await vis.get_detections(pil_to_viam_image(l_frame, CameraMimeType.JPEG), detector_name)
 
     # Crop image to get only the right two fifths of the original image
     r_frame = frame.crop((x / 1.25, 0, x, y))
-    r_det = await vis.get_detections(r_frame, detector_name)
+    r_det = await vis.get_detections(pil_to_viam_image(r_frame, CameraMimeType.JPEG), detector_name)
 
     if not (r_det or l_det):
         return Direction.STOP
@@ -70,7 +72,7 @@ async def main():
     try:
         while True:
             frame = await camera.get_image()
-            direction = await move_to_color(frame, vision, "green_detector")
+            direction = await move_to_color(viam_to_pil_image(frame), vision, "green_detector")
             print(f"move:{direction}")
 
             if Direction.FORWARD is direction:
