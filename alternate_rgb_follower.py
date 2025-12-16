@@ -71,7 +71,8 @@ async def main():
     angular_power = 0.35
     try:
         while True:
-            frame = await camera.get_image()
+            images, _ = await camera.get_images()
+            frame = images[0]
             direction = await move_to_color(viam_to_pil_image(frame), vision, "green_detector")
             print(f"move:{direction}")
 
