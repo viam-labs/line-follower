@@ -30,7 +30,7 @@ async def is_color_in_front(camera: Camera, detector: VisionClient):
     Returns whether the appropriate path color is detected in front of the center of the robot.
     """
     images, _ = await camera.get_images()
-    frame = images[0]
+    frame = viam_to_pil_image(images[0])
 
     x, y = frame.size[0], frame.size[1]
 
@@ -53,7 +53,7 @@ async def is_color_there(
     Returns whether the appropriate path color is detected to the left/right of the robot's front.
     """
     images, _ = await camera.get_images()
-    frame = images[0]
+    frame = viam_to_pil_image(images[0])
     x, y = frame.size[0], frame.size[1]
 
     if location == "left":
